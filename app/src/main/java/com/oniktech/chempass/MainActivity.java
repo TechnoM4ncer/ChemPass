@@ -1,25 +1,16 @@
 package com.oniktech.chempass;
 
-import android.app.Activity;
-import android.content.res.Resources;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
-
-/* Created by aepplijonathan on 12/04/2016 */
-
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     private ListView lvChemicals;
     private ChemicalsListAdapter adapter;
     private List<Chemicals> mChemicalsList;
@@ -33,9 +24,9 @@ public class MainActivity extends Activity {
 
         chemicalList = getResources().getStringArray(R.array.chemicals_array);
         lvChemicals = (ListView) findViewById(R.id.listview_chemicals);
-        int x = 1;
         mChemicalsList = new ArrayList<>();
-        mChemicalsList.add(new Chemicals(inArray(chemicalList), x++));
+
+        addToList(chemicalList);
 
         //Init adapter
         adapter = new ChemicalsListAdapter(getApplicationContext(), mChemicalsList);
@@ -50,10 +41,9 @@ public class MainActivity extends Activity {
         });
     }
 
-    public static String inArray(String[] array) {
-        for (int i = 0; i < array.length; i++) {
-            return array[i];
+    public void addToList(String[] array) {
+        for (int y = 0; y < array.length; y++) {
+            mChemicalsList.add(new Chemicals (array[y], y));
         }
-        return null;
     }
 }
