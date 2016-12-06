@@ -1,8 +1,12 @@
 package com.oniktech.chempass;
 
-
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -10,32 +14,24 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private ListView lvChemicals;
-    private ChemicalsListAdapter adapter;
-    private List<Chemicals> mChemicalsList;
 
-    String[] chemicalList;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ListView lvChemicals = (ListView) findViewById(R.id.listViewChemicals);
+        ArrayList<String> mChemicalsList = new ArrayList<>();
+        mChemicalsList.addAll(Arrays.asList(getResources().getStringArray(R.array.chemicals_array)));
+        Collections.sort(mChemicalsList);
 
-        chemicalList = getResources().getStringArray(R.array.chemicals_array);
-        lvChemicals = (ListView) findViewById(R.id.listview_chemicals);
-        mChemicalsList = new ArrayList<>();
+        adapter = new ArrayAdapter<> (MainActivity.this,
+                android.R.layout.simple_list_item_1,
+                mChemicalsList);
 
-        Arrays.sort(chemicalList);
-
-        addToList(chemicalList);
-
-
-        //Init adapter
-        adapter = new ChemicalsListAdapter(getApplicationContext(), mChemicalsList);
         lvChemicals.setAdapter(adapter);
 
         lvChemicals.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -47,10 +43,26 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void addToList(String[] array) {
-        for (int y = 0; y < array.length; y++) {
-            mChemicalsList.add(new Chemicals (array[y], y));
-        }
-    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+        MenuItem item = menu.findItem(R.id.menuSearch);
+        SearchView searchView = (SearchView) item.getActionView();
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
 }

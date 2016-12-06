@@ -7,13 +7,4 @@
     android:paddingBottom="5dp"
     android:paddingTop="5dp"
     android:background="#ffffff">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/chemical_Name"
-        android:text="Chemical"
-        android:textSize="20dp"
-        android:textColor="#00a7f5"/>
-
 </LinearLayout>
