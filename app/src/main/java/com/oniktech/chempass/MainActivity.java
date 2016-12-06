@@ -8,6 +8,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,7 +29,10 @@ public class MainActivity extends AppCompatActivity {
         lvChemicals = (ListView) findViewById(R.id.listview_chemicals);
         mChemicalsList = new ArrayList<>();
 
+        Arrays.sort(chemicalList);
+
         addToList(chemicalList);
+
 
         //Init adapter
         adapter = new ChemicalsListAdapter(getApplicationContext(), mChemicalsList);
@@ -46,4 +52,5 @@ public class MainActivity extends AppCompatActivity {
             mChemicalsList.add(new Chemicals (array[y], y));
         }
     }
+
 }
