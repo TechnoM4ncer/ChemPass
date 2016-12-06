@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Do something
-                Toast.makeText(getApplicationContext(), "Clicked chemical id = " + view.getTag(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Clicked chemical id = " + adapter.getItem(position), Toast.LENGTH_SHORT).show();
             }
         });
     }
