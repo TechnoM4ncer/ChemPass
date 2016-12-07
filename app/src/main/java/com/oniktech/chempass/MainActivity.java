@@ -1,5 +1,6 @@
 package com.oniktech.chempass;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -38,7 +39,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Do something
-                Toast.makeText(getApplicationContext(), "Clicked chemical id = " + adapter.getItem(position), Toast.LENGTH_SHORT).show();
+                String select = adapter.getItem(position);
+                Intent myIntent = new Intent(MainActivity.this, Results.class);
+                myIntent.putExtra("data", select);
+                startActivity(myIntent);
             }
         });
     }
