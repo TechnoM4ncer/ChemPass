@@ -1,5 +1,6 @@
 package com.oniktech.chempass;
 
+
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,7 @@ public class Results extends AppCompatActivity {
         showImage();
     }
 
+    //Displays image for the chemical on top of activity
     private void showImage() {
         ImageView imageView = (ImageView) findViewById(R.id.result_image);
         imageView.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.ic_launcher));
